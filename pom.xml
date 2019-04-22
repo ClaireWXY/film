@@ -5,6 +5,7 @@
     <artifactId>guns-parent</artifactId>
     <version>1.0.0</version>
 
+
     <name>guns-parent</name>
     <packaging>pom</packaging>
 
@@ -16,6 +17,8 @@
         <module>guns-user</module>
         <module>guns-cinema</module>
         <module>guns-movie</module>
+        <module>guns-gateway</module>
+        <module>guns-api</module>
     </modules>
 
     <parent>
@@ -172,6 +175,16 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>1.2.17</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.spring.boot</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>0.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

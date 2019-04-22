@@ -10,7 +10,7 @@ jwt:
   md5-key: randomKey      #md5加密混淆key
 
 server:
-  port: 80 #项目端口
+  port: 8083 #项目端口
 
 mybatis-plus:
   mapper-locations: classpath*:com/stylefeng/guns/rest/**/mapping/*.xml
@@ -28,10 +28,18 @@ mybatis-plus:
 
 spring:
   datasource:
-      url: jdbc:mysql://127.0.0.1:3306/guns_movie?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+      url: jdbc:mysql://127.0.0.1:3306/movie?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
       username: root
       password: 123456
       filters: log4j,wall,mergeStat
+  application:
+    name: film-movie
+    dubbo:
+      server: true
+      registy: zookeeper://localhost:2181
+      protocl:
+        name: dubbo
+        port: 20883
 
 logging:
   level.root: info
