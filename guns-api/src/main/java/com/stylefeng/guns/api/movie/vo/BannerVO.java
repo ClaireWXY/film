@@ -21,5 +21,36 @@ public class BannerVO implements Serializable {
         this.bannerUrl = bannerUrl;
     }
 
+    public String getBannerId() {
+        return bannerId;
+    }
 
+    public void setBannerId(String bannerId) {
+        this.bannerId = bannerId;
+    }
+
+    public String getBannerAddress() {
+        return bannerAddress;
+    }
+
+    public void setBannerAddress(String bannerAddress) {
+        this.bannerAddress = bannerAddress;
+    }
+
+    public String getBannerUrl() {
+        return bannerUrl;
+    }
+
+    public void setBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "BannerVO{" +
+                "bannerId='" + bannerId + '\'' +
+                ", bannerAddress='" + bannerAddress + '\'' +
+                ", bannerUrl='" + bannerUrl + '\'' +
+                '}';
+    }
 }
