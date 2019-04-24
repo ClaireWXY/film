@@ -5,13 +5,10 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.stylefeng.guns.api.movie.MovieService;
-import com.stylefeng.guns.api.movie.vo.BannerVO;
-import com.stylefeng.guns.api.movie.vo.FilmInfo;
-import com.stylefeng.guns.api.movie.vo.FilmVO;
+import com.stylefeng.guns.api.movie.vo.*;
 import com.stylefeng.guns.core.util.DateUtil;
 import com.stylefeng.guns.rest.persistence.dao.*;
-import com.stylefeng.guns.rest.persistence.model.MtimeBannerT;
-import com.stylefeng.guns.rest.persistence.model.MtimeFilmT;
+import com.stylefeng.guns.rest.persistence.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -253,5 +250,45 @@ public class MovieServiceImpl implements MovieService {
         List<MtimeFilmT> mtimeFilms = mtimeFilmTMapper.selectPage(page, entityWrapper);
         List<FilmInfo> filmInfos = getFilmInfos(mtimeFilms);
         return filmInfos;
+    }
+
+    @Override
+    public List<CatVO> getCats() {
+        ArrayList<CatVO> cats = new ArrayList<>();
+        List<MtimeCatDictT> mtimeCats= mtimeCatDictTMapper.selectList(null);//查询影片分类实体对象
+        for (MtimeCatDictT mtimeCat : mtimeCats) {
+            //将实体对象转换成业务对象
+            CatVO catVO = new CatVO();
+            catVO.setCatId(mtimeCat.getUuid()+"");
+            catVO.setCatName(mtimeCat.getShowName());
+            cats.add(catVO);
+        }
+        return cats;
+    }
+
+    @Override
+    public List<SourceVO> getSources() {
+        ArrayList<SourceVO> sources = new ArrayList<>();
+        List<MtimeSourceDictT> mtimeSources = mtimeSourceDictTMapper.selectList(null);
+        for (MtimeSourceDictT mtimeSource : mtimeSources) {
+            SourceVO sourceVO = new SourceVO();
+            sourceVO.setSourceId(mtimeSource.getUuid()+"");
+            sourceVO.setSourceName(mtimeSource.getShowName());
+            sources.add(sourceVO);
+        }
+        return sources;
+    }
+
+    @Override
+    public List<YearVO> getYears() {
+        ArrayList<YearVO> years = new ArrayList<>();
+        List<MtimeYearDictT> mtimeYears = mtimeYearDictTMapper.selectList(null);
+        for (MtimeYearDictT mtimeYear : mtimeYears) {
+            YearVO yearVO = new YearVO();
+            yearVO.setYearId(mtimeYear.getUuid()+"");
+            yearVO.setYearName(mtimeYear.getShowName());
+            years.add(yearVO);
+        }
+        return years;
     }
 }

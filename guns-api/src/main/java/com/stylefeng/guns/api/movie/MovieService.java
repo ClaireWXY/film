@@ -1,8 +1,6 @@
 package com.stylefeng.guns.api.movie;
 
-import com.stylefeng.guns.api.movie.vo.BannerVO;
-import com.stylefeng.guns.api.movie.vo.FilmInfo;
-import com.stylefeng.guns.api.movie.vo.FilmVO;
+import com.stylefeng.guns.api.movie.vo.*;
 
 import java.util.List;
 
@@ -24,5 +22,12 @@ public interface MovieService {
     List<FilmInfo> getExpectRanking();
     //top100
     List<FilmInfo> getTop();
+
+    //按分类条件查询
+    List<CatVO> getCats();
+    //按片源条件查询
+    List<SourceVO> getSources();
+    //按年代条件查询
+    List<YearVO> getYears();
 
 }

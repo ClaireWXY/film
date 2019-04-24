@@ -1,16 +1,18 @@
 package com.stylefeng.guns.rest.modular.movie.vo;
 
 
+import lombok.Data;
+
 /**
  * @author Wang Xueyang
  * @create 2019-04-23
  */
-
+@Data
 public class ResponseVO<M> {
 
     private int status;//返回状态：0:成功；1:失败；999:系统异常
-    private String msg;
-    private M data;
+    private String msg;//具体信息
+    private M data;//返回的数据实体
     private String imgPre;//图片前缀
     private int nowPage;//分页
     private int totalPage;
@@ -18,56 +20,8 @@ public class ResponseVO<M> {
     public ResponseVO() {
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public M getData() {
-        return data;
-    }
-
-    public void setData(M data) {
-        this.data = data;
-    }
-
-    public String getImgPre() {
-        return imgPre;
-    }
-
-    public void setImgPre(String imgPre) {
-        this.imgPre = imgPre;
-    }
-
-    public int getNowPage() {
-        return nowPage;
-    }
-
-    public void setNowPage(int nowPage) {
-        this.nowPage = nowPage;
-    }
-
-    public int getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(int totalPage) {
-        this.totalPage = totalPage;
-    }
-
     //成功
-    public static<M> ResponseVO success(int nowPage, int totalPage, String imgPre, M m){
+   /* public static<M> ResponseVO success(int nowPage, int totalPage, String imgPre, M m){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
         responseVO.setData(m);
@@ -76,14 +30,14 @@ public class ResponseVO<M> {
         responseVO.setTotalPage(totalPage);
         return responseVO;
     }
-
-    public static<M> ResponseVO success(String imgPre, M m){
+*/
+    /*public static<M> ResponseVO success(String imgPre, M m){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
         responseVO.setData(m);
         responseVO.setImgPre(imgPre);
         return responseVO;
-    }
+    }*/
 
     public static<M> ResponseVO success( M m){
         ResponseVO responseVO = new ResponseVO();
@@ -92,12 +46,12 @@ public class ResponseVO<M> {
         return responseVO;
     }
 
-    public static<M> ResponseVO success( String msg){
+  /*  public static<M> ResponseVO success( String msg){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
         responseVO.setMsg(msg);
         return responseVO;
-    }
+    }*/
 
     //失败
     public static <M> ResponseVO fail(String msg){
