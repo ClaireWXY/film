@@ -11,7 +11,7 @@ jwt:
   ignoreurl: /user/register,/user/login #放行的链接
 
 server:
-  port: 80 #项目端口
+  port: 8080 #项目端口
 
 mybatis-plus:
   mapper-locations: classpath*:com/stylefeng/guns/rest/**/mapping/*.xml
