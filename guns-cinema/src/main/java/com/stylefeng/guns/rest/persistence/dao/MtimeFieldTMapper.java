@@ -1,5 +1,6 @@
 package com.stylefeng.guns.rest.persistence.dao;
 
+import com.stylefeng.guns.api.cinema.vo.HallInfoVO;
 import com.stylefeng.guns.rest.persistence.model.MtimeFieldT;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeFieldTMapper extends BaseMapper<MtimeFieldT> {
 
+    HallInfoVO getHallInfo(int fieldId);
 }

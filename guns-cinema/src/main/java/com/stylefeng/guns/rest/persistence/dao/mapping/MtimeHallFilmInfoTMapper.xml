@@ -14,4 +14,20 @@
         <result column="img_address" property="imgAddress" />
     </resultMap>
 
+    <select id="getFilmInfoById" parameterType="java.lang.Integer" resultType="com.stylefeng.guns.api.cinema.vo.FilmInfoVO">
+        SELECT
+          f.`film_id` AS filmId,
+          info.`film_name` AS filmName,
+          info.`film_length` AS filmLength,
+          info.`film_language` AS filmType,
+          info.`film_cats` AS filmCats,
+          info.`actors` AS actors,
+          info.`img_address` AS imgAddress
+        FROM
+          mtime_field_t f,
+          mtime_hall_film_info_t info
+        WHERE f.`film_id` = info.`film_id`
+          AND f.`UUID` = #{fieldId}
+    </select>
+
 </mapper>

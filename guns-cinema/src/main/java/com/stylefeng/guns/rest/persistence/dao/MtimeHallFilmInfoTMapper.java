@@ -1,5 +1,6 @@
 package com.stylefeng.guns.rest.persistence.dao;
 
+import com.stylefeng.guns.api.cinema.vo.FilmInfoVO;
 import com.stylefeng.guns.rest.persistence.model.MtimeHallFilmInfoT;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeHallFilmInfoTMapper extends BaseMapper<MtimeHallFilmInfoT> {
 
+    FilmInfoVO getFilmInfoById(int fieldId);
 }

@@ -14,4 +14,21 @@
         <result column="price" property="price" />
     </resultMap>
 
+    <select id="getHallInfo" parameterType="java.lang.Integer" resultType="com.stylefeng.guns.api.cinema.vo.HallInfoVO">
+        SELECT
+          f.`UUID` AS hallFieldId,
+          f.`hall_name` AS hallName,
+          f.`price` AS price,
+          hall.`seat_address` AS seatFile,
+          o.`seats_ids` AS soldSeats
+        FROM
+          mtime_hall_dict_t hall,
+          mtime_field_t f,
+          mtime_order_t o
+        WHERE f.`hall_id` = hall.`UUID`
+          AND o.`film_id` = f.`film_id`
+          AND o.`field_id` = f.`UUID`
+          AND o.`cinema_id` = f.`cinema_id`
+    </select>
+
 </mapper>
