@@ -30,4 +30,6 @@ public interface CinemaService {
     //8、根据放映场次查询播放的电影编号，然后根据电影编号查询对应的电影信息
     FilmInfoVO getFilmInfoByFieldId(int fieldId);
 
+    //9、订单模块需要接口byClaireWang
+    OrderQueryVO getOrderQuery(int fieldId);
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.rest.persistence.dao.MtimeOrderTMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.rest.persistence.model.MtimeOrderT">
+        <result column="UUID" property="uuid" />
+        <result column="cinema_id" property="cinemaId" />
+        <result column="field_id" property="fieldId" />
+        <result column="film_id" property="filmId" />
+        <result column="seats_ids" property="seatsIds" />
+        <result column="seats_name" property="seatsName" />
+        <result column="film_price" property="filmPrice" />
+        <result column="order_price" property="orderPrice" />
+        <result column="order_time" property="orderTime" />
+        <result column="order_user" property="orderUser" />
+        <result column="order_status" property="orderStatus" />
+    </resultMap>
+
+    <select id="selectSeatsByField" resultType="java.lang.String">
+        select 
+        seat_address as seatAddress
+        from mtime_hall_dict_t d,mtime_field_t f
+        where 
+        f.hall_id=d.UUID
+        and 
+        f.UUID=#{fieldId}  
+    </select>
+
+    <select id="selectOrderInfoById" resultType="com.stylefeng.guns.api.order.vo.OrderVO">
+        select
+          o.`uuid` as orderid,
+          h.`film_name` as filmname,
+          concat(date_format(o.`order_time`,'%y年%m月%d日'),' ',f.`begin_time`) as fieldtime,
+          c.`cinema_name` as cinemaname,
+          o.`seats_name` as seatsname,
+          o.`order_price` as orderprice,
+          unix_timestamp(o.`order_time`) as ordertimestamp
+        from
+          mtime_order_t o,
+          mtime_field_t f,
+          mtime_hall_film_info_t h,
+          mtime_cinema_t c
+        where o.`cinema_id` = c.`uuid`
+          and o.`field_id` = f.`uuid`
+          and o.`film_id` = h.`film_id`
+          and o.`uuid` = #{orderid}
+    </select>
+
+    <select id="selectOrderByUserId" resultType="com.stylefeng.guns.api.order.vo.OrderVO">
+         select
+          o.`uuid` as orderid,
+          h.`film_name` as filmname,
+          concat(date_format(o.`order_time`,'%y年%m月%d日'),' ',f.`begin_time`) as fieldtime,
+          c.`cinema_name` as cinemaname,
+          o.`seats_name` as seatsname,
+          o.`order_price` as orderprice,
+          unix_timestamp(o.`order_time`) as ordertimestamp
+        from
+          mtime_order_t o,
+          mtime_field_t f,
+          mtime_hall_film_info_t h,
+          mtime_cinema_t c
+        where o.`cinema_id` = c.`uuid`
+          and o.`field_id` = f.`uuid`
+          and o.`film_id` = h.`film_id`
+          and o.`order_user` = #{userid}
+    </select>
+
+    <select id="selectSoldSeatsByFieldId" resultType="java.lang.String">
+        select
+        group_concat(seats_ids)
+        from
+        mtime_order_t
+        where
+        field_id=#{fieldId}
+    </select>
+</mapper>

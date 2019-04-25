@@ -19,4 +19,42 @@
         <result column="film_status" property="filmStatus" />
     </resultMap>
 
+    <select id="selectFilmDetailByName" resultType="com.stylefeng.guns.api.movie.vo.FilmDetailVO">
+        select
+        film.uuid as filmId,
+        film.film_name as filmName,
+        info.`film_en_name` as filmEnName,
+        film.`img_address` as imgAddress,
+        info.`film_score` as score,
+        info.`film_score_num` as scoreNum,
+        film.`film_box_office` as totalBox,
+        (select group_concat(show_name SEPARATOR ',') from mtime_cat_dict_t t
+        where FIND_IN_SET (t.uuid,
+        (select replace(trim(both '#' from film_cats),'#',',') from mtime_film_t t WHERE t.uuid=film.uuid))) as info01,
+                concat((select show_name from mtime_source_dict_t t where t.uuid=film.uuid),' / ',info.`film_length`,'分钟') info02,
+                CONCAT(film.`film_time`,(select show_name from mtime_source_dict_t t where t.uuid=film.uuid),'上映') info03
+          from mtime_film_t film,mtime_film_info_t info
+          where film.`UUID` = info.`film_id`
+          and film.film_name like #{filmName}
+    </select>
+
+    <select id="selectFilmDetailById" resultType="com.stylefeng.guns.api.movie.vo.FilmDetailVO">
+        select
+        film.uuid as filmid,
+        film.film_name as filmname,
+        info.`film_en_name` as filmenname,
+        film.`img_address` as imgaddress,
+        info.`film_score` as score,
+        info.`film_score_num` as scorenum,
+        film.`film_box_office` as totalbox,
+        (select group_concat(show_name separator ',') from mtime_cat_dict_t t
+        where find_in_set (t.uuid,
+        (select replace(trim(both '#' from film_cats),'#',',') from mtime_film_t t where t.uuid=film.uuid))) as info01,
+        concat((select show_name from mtime_source_dict_t t where t.uuid=film.uuid),' / ',info.`film_length`,'分钟') info02,
+        concat(film.`film_time`,(select show_name from mtime_source_dict_t t where t.uuid=film.uuid),'上映') info03
+      from mtime_film_t film,mtime_film_info_t info
+      where film.`uuid` = info.`film_id`
+      and film.`uuid` = #{uuid}
+    </select>
+
 </mapper>

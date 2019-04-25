@@ -239,4 +239,14 @@ public class CinemaServiceImpl implements CinemaService {
 
         return filmInfoVO;
     }
+
+    //订单模块需要的接口 byClaireWang
+    @Override
+    public OrderQueryVO getOrderQuery(int fieldId) {
+        OrderQueryVO orderQueryVO = new OrderQueryVO();
+        MtimeFieldT mtimeFieldT = mtimeFieldTMapper.selectById(fieldId);
+        orderQueryVO.setCinemaId(mtimeFieldT.getCinemaId()+"");
+        orderQueryVO.setFilmPrice(mtimeFieldT.getPrice()+"");
+        return null;
+    }
 }

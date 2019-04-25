@@ -30,4 +30,20 @@ public interface MovieService {
     //按年代条件查询
     List<YearVO> getYears();
 
+    //通过ID或是名称获取影片信息
+    FilmDetailVO getFilmDetail(int searchType,String search);
+
+    //获取影片的描述信息
+    FilmDescVO getFilmDesc(String filmId);
+
+    //获取图片信息
+    ImgVO getImgs(String filmId);
+
+    //获取导演信息
+    ActorVO getDectInfo(String filmId);
+
+    //获取导演信息
+    List<ActorVO> getActors(String filmId);
+
+
 }

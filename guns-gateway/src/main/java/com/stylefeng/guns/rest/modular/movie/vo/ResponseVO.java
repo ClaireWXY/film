@@ -8,11 +8,11 @@ import lombok.Data;
  * @create 2019-04-23
  */
 @Data
-public class ResponseVO<M> {
+public class ResponseVO<T> {
 
     private int status;//返回状态：0:成功；1:失败；999:系统异常
     private String msg;//具体信息
-    private M data;//返回的数据实体
+    private T data;//返回的数据实体
     private String imgPre;//图片前缀
     private int nowPage;//分页
     private int totalPage;
@@ -21,40 +21,40 @@ public class ResponseVO<M> {
     }
 
     //成功
-   /* public static<M> ResponseVO success(int nowPage, int totalPage, String imgPre, M m){
+   public static<T> ResponseVO success(int nowPage, int totalPage, String imgPre, T t){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
-        responseVO.setData(m);
+        responseVO.setData(t);
         responseVO.setImgPre(imgPre);
         responseVO.setNowPage(nowPage);
         responseVO.setTotalPage(totalPage);
         return responseVO;
     }
-*/
-    /*public static<M> ResponseVO success(String imgPre, M m){
-        ResponseVO responseVO = new ResponseVO();
-        responseVO.setStatus(0);
-        responseVO.setData(m);
-        responseVO.setImgPre(imgPre);
-        return responseVO;
-    }*/
 
-    public static<M> ResponseVO success( M m){
+    public static<T> ResponseVO success(String imgPre, T data){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
-        responseVO.setData(m);
+        responseVO.setData(data);
+        responseVO.setImgPre(imgPre);
         return responseVO;
     }
 
-  /*  public static<M> ResponseVO success( String msg){
+    public static<T> ResponseVO success( T data){
+        ResponseVO responseVO = new ResponseVO();
+        responseVO.setStatus(0);
+        responseVO.setData(data);
+        return responseVO;
+    }
+
+    public static<T> ResponseVO success(String msg){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(0);
         responseVO.setMsg(msg);
         return responseVO;
-    }*/
+    }
 
     //失败
-    public static <M> ResponseVO fail(String msg){
+    public static <T> ResponseVO fail(String msg){
         ResponseVO responseVO =new ResponseVO();
         responseVO.setStatus(1);
         responseVO.setMsg(msg);
@@ -62,7 +62,7 @@ public class ResponseVO<M> {
     }
 
     //系统异常
-    public static<M> ResponseVO sysError(String msg){
+    public static<T> ResponseVO sysError(String msg){
         ResponseVO responseVO = new ResponseVO();
         responseVO.setStatus(999);
         responseVO.setMsg(msg);

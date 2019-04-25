@@ -70,6 +70,13 @@ public class MovieServiceImpl implements MovieService {
         return filmInfos;
     }
 
+    private MtimeFilmInfoT getFilmInfo(String filmId){
+        MtimeFilmInfoT mtimeFilmInfoT = new MtimeFilmInfoT();
+        mtimeFilmInfoT.setFilmId(filmId);
+        mtimeFilmInfoT = mtimeFilmInfoTMapper.selectOne(mtimeFilmInfoT);
+        return mtimeFilmInfoT;
+    }
+
     @Override
     public List<BannerVO> getBanners() {
         ArrayList<BannerVO> result = new ArrayList<>();
@@ -290,5 +297,61 @@ public class MovieServiceImpl implements MovieService {
             years.add(yearVO);
         }
         return years;
+    }
+
+    @Override
+    public FilmDetailVO getFilmDetail(int searchType, String search) {
+        FilmDetailVO filmDetailVO=null;
+        //searchType 1:名称，2：ID
+        if (searchType==1){
+            filmDetailVO = mtimeFilmTMapper.selectFilmDetailByName("%" + search + "%");
+        }else {
+            filmDetailVO = mtimeFilmTMapper.selectFilmDetailById(search);
+        }
+        return filmDetailVO;
+    }
+
+    @Override
+    public FilmDescVO getFilmDesc(String filmId) {
+        MtimeFilmInfoT filmInfo = getFilmInfo(filmId);
+        FilmDescVO filmDescVO = new FilmDescVO();
+        filmDescVO.setBiography(filmInfo.getBiography());
+        filmDescVO.setFilmId(filmId);
+        return filmDescVO;
+    }
+
+    @Override
+    public ImgVO getImgs(String filmId) {
+        MtimeFilmInfoT filmInfo = getFilmInfo(filmId);
+        String filmImgStr = filmInfo.getFilmImgs();
+        String[] filmImgs = filmImgStr.split(",");
+
+        ImgVO imgVO = new ImgVO();
+        imgVO.setMianImg(filmImgs[0]);
+        imgVO.setImg01(filmImgs[1]);
+        imgVO.setImg02(filmImgs[2]);
+        imgVO.setImg03(filmImgs[3]);
+        imgVO.setImg04(filmImgs[4]);
+
+        return imgVO;
+    }
+
+    @Override
+    public ActorVO getDectInfo(String filmId) {
+        MtimeFilmInfoT filmInfo = getFilmInfo(filmId);
+        //获取导演信息
+        Integer directId=filmInfo.getDirectorId();
+        MtimeActorT mtimeActorT = mtimeActorTMapper.selectById(directId);
+
+        ActorVO actorVO = new ActorVO();
+        actorVO.setImageAddress(mtimeActorT.getActorImg());
+        actorVO.setDirectorName(mtimeActorT.getActorName());
+        return actorVO;
+    }
+
+    @Override
+    public List<ActorVO> getActors(String filmId) {
+        List<ActorVO> actors = mtimeActorTMapper.selectActors(filmId);
+        return actors;
     }
 }
