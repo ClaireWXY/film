@@ -13,11 +13,10 @@ import com.stylefeng.guns.api.order.vo.OrderVO;
 import com.stylefeng.guns.rest.modular.order.util.FTPUtil;
 import com.stylefeng.guns.rest.persistence.dao.MtimeOrderTMapper;
 import com.stylefeng.guns.rest.persistence.model.MtimeOrderT;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sun.util.resources.cldr.fil.CurrencyNames_fil;
+
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -177,8 +176,8 @@ public class OrderServiceImpl implements OrderService {
             log.error("未找到场次信息。");
             return "";
         }else {
-            String soldSeatsByFieldId = mtimeOrderTMapper.selectSoldSeatsByFieldId(fieldId);
-            return soldSeatsByFieldId;
+            String soldSeats = mtimeOrderTMapper.selectSoldSeatsByFieldId(fieldId);
+            return soldSeats;
         }
     }
 
